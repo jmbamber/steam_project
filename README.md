@@ -7,12 +7,11 @@ The goal was the create a model that could accurately predict how many extra pla
 
 In order to maximise number of datapoints, the analysis was based around the Steam Summer Sale 2019, a large sale event running from 25th June to 9th July where approximately 3/4s of the games for sale were discounted. The variable to be predicted was the difference in average player numbers between the month before and the month after the sale (June to July).
 
-Information on which games were discounted, and by how much, was scraped from [IsThereAnyDeal.com](https://www.isthereanydeal.com), and player number information was scraped from [SteamCharts.com](https://www.steamcharts.com). Information about the games themselves was taken from the Steam Store API (originally planned to be done by myself, before finding it already done on Kaggle!).
+Information on which games were discounted, and by how much, was scraped from [IsThereAnyDeal.com](https://www.isthereanydeal.com), and player number information was scraped from [SteamCharts.com](https://www.steamcharts.com). Information about the games themselves was taken from the Steam Store API (originally planned to be done by myself, before finding it already done on Kaggle).
 
-Ultimately, by far the biggest predictor of player numbers (absolute or relative) turned out to be past player numbers, and using these values alone can create a fairly successful prediction for future player numbers. Attempting to to create a more accurate model by taking more features into account proved difficult as most tested models were found to be too unstable when presented with unseen data.
-However removing some of the most popular games from the dataset allowed the creation of a Random Forest model that, although not especially powerful, was relatively stable.
+Ultimately, by far the biggest predictor of player numbers (whether absolute or change) turned out to be past player numbers, and using these values alone is already a fairly successful prediction for future player numbers. By removing some of the most popular games from the dataset (still keeping over 99% of the sample), a Random Forest model was created that, although not especially powerful, was relatively stable.
 
-There are still some further avenues of investigation and/or ways in which the data could be collected differently which may help make a valuable model.
+Based on the model discount amount has only a small impact on the change in player numbers after a sale. Considering the current low accuracy though, this cannot be taken as a definitive conclusion. Some further avenues of investigation and/or ways in which the data could be collected differently were also identified, which may help make a more valuable model in the future.
 
 Below is a summary of each stage of the project, with links to the Jupyter Notebooks containing greater detail and all code used.
 
