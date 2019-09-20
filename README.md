@@ -21,7 +21,7 @@ The original plan was to download information on games using the Steam store API
 
 This dataset was cleaned by removing free games (can't be discounted) and games released in 2019 (hopefully these games would have more stable monthly player numbers than those recently released):
 
-[Steam API Cleaning](./notebooks/Steam_API_Data_Cleaning.ipynb)
+[Steam API Cleaning](./notebooks/Steam_API_data_cleaning.ipynb)
 
 Next, on which of these games were on sale during the Summer Sale was scraped from [IsThereAnyDeal.com](https://www.isthereanydeal.com):
 
