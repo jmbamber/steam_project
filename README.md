@@ -1,3 +1,4 @@
+
 # "There just aren't enough people playing my wizard simulator" - An analysis of Steam Sales and their impact on player numbers
 
 **Executive Summary**
@@ -56,27 +57,30 @@ An analysis of the results showed that the model was struggling to cope with the
 
 To try and solve this, the target variable was changed from the difference between June and July numbers, to just the June average player numbers. This resulted in a Random Forest model that seemed highly accurate, but was because the vast majority of the predictive power was coming from the player numbers in June. Recalibrating the evaluation metric to use the June figures as a baseline showed that the model was significantly weaker. 
 
-Considering the high watermark set by the baseline, even a weak model would have some value though. Also, investigation of the residuals showed that it was just a few predictions that were very strongly off and were significantly affecting the model's accuracy. All of these predictions were found to be from games that currently had large player numbers. Imposing stricter and stricter filters on the dataset found that by including only games with current player numbers of less than 2000 (which still account for over 99% of the total dataset of games) a model could be created that, although not much more accurate, was a lot more stable to cross-validation.
+Considering the high watermark set by the baseline, even a weak model would have some value though. Also, investigation of the residuals showed that it was just a few predictions that were very strongly off and were significantly affecting the model's accuracy. All of these predictions were found to be from games that currently had large player numbers. Imposing stricter and stricter filters on the dataset found that by including only games with current player numbers of less than 3000 (which still account for over 99% of the total dataset of games) a model could be created that, although not much more accurate, was a lot more stable to cross-validation.
 
 [Steam Modelling](notebooks/steam_modelling_writeup) 
 
-**Conclusions**
+### **Conclusions**
+
+**1) This is difficult to predict**
 
 Ultimately, predicting the uplift in player numbers resulting from a large Steam Sale appears to be very difficult. Part of this is due to the state of the industry (indeed the state of all entertainment industries), that the vast majority of players are concentrated around only a very few games. This means any variable based on player numbers will have a challenging distribution that needs to be dealt with.
 
 None of the transformations I tried applying proved particularly successful. They were either not strong enough (Fisher, Yeo-Johnson) or couldn't cope with all the values (can't log transform negative numbers). Shifting my attention to a new variable (actual player numbers) did allow for easier transformation, but didn't help with the problem that the most extreme values had the least training examples. As such, most models ended up unstable and struggled to cope when presented with such extreme values for prediction.
 
+**2) Discounts appear to have little impact on player numbers**
 
-The final model created was not especially powerful or useful. 
+Looking at the coefficients/feature importances of the models that were made, there is a clear trend: popularity features are the biggest predictors of change in player numbers (i.e. features like current/max player numbers, number of ratings etc.). The level of discount provides very little predictive power, suggesting that it therefore has little impact.
 
-A minor issue was that, to increase the stability the sample universe had to be restricted. However I think this is an acceptable sacrifice to make as less than 1% had to be removed, and those that were removed are the most likely to have come from a large studio that has the resources and capabilities to run their own analyses.
+There are a few things to be aware of here though:
 
-In terms of accuracy, it was slightly more accurate than baseline (in this case, the previous month's numbers), but not by very much. Evaluating its absolute accuracy is challenging however, as traditional measures such as MAE or MAPE over-exaggerate errors at either end of the scale. A next step would be to look into alternative loss functions that work across all values on a logistic scale.
+1) The accuracy of the models were low, so this is not a definitive claim
+2) Player numbers does not mean sales. Sales may well still significantly increase due to a discount, but if you are a small indie developer who needs a larger playerbase (e.g. for a multiplayer game), you cannot expect a discount to bring in the players needed)
 
-By far the strongest predictors of player numbers were other features directly or indirectly related to player numbers. As such, without completely changing the model, it's difficult to see much practical value from it. At best the only insights it provides into maximising the impact of a Steam Sale is that your game will benefit the most if it is already popular. While it might be tempting to look at the low level of importance given the discount amount and take away that the discount level has little impact, considering the low accuracy of the model I would not suggest that could be taken as true at all.
+**3) This is a topic worth investigating further**
 
-
-Despite the lack of success here, there are still some avenues that I believe are worth investigating further:
+Despite the lack of clear success here, there are still some avenues that I believe are worth investigating further:
 
 Firstly, trying to gather the data again. As I had to look at historical data, I ended up using the difference between month averages. While it was true that there was a larger uplift in player numbers that usual (presumably due to the sale), the uplift would have likely been somewhat watered down by the rest of the month. The next major Steam Sale is likely to occur over Halloween. Getting player numbers through either the API or scraping immediately afterwards will hopefully result in a more prominent and consistent uplift in the player numbers.
 
