@@ -41,9 +41,9 @@ The three separate datasets had to be combined into one, followed by a large amo
 
 Next the EDA began. Fortunately my initial hypothesis turned out to be correct, most games had increased in average player numbers between June and July (also a higher proportion than those that increased between May and June) and the increase was higher among games that had been discounted in the Summer Sale.
 
-However the EDA also confirmed one of my concerns: the target variable wasn't at all normally distributed. It appeared somewhat logistic and was very positively skewed. Despite the top games getting a monthly average of tens of thousands of players, only around 1% get more than 1000, while a full third average at less than 1 player. Most people playing games are concentrated on only a very few of the most popular ones.
+However the EDA also confirmed one of my concerns: the target variable wasn't at all normally distributed. It appeared somewhat logistic and was very positively skewed. Despite the top games getting a monthly average of tens of thousands of players, only around 1% get more than 1000. Most people playing games are concentrated on just a few of the most popular ones.
 
-Various transformations were applied to try and bring it to a more normal distribution, including a Fisher transformation and a Yeo-Johnson, but neither were strong enough. In the end it seemed like the best approach was to use a log transformation, but this presented a new problem: How to deal with the negative numbers in my prediction variable (i.e. those games who dropped in numbers between the month). In the end I decided to try transforming all negative numbers to 0 (i.e. "no increase in players) and add a small constant (to deal with those 0s). Further decisions would be made based on initial modelling attempts.
+Various transformations were applied to try and bring it to a more normal distribution, but the best approach seemed to be using a log transformation. This presented a new problem: How to deal with the negative numbers in my prediction variable (i.e. those games who dropped in numbers between the months). I decided to start by transforming all negative numbers to 0 (i.e. "no increase in players) and add a small constant (to deal with those zeros). Further decisions would be made based on initial modelling attempts.
 
 [Steam EDA](notebooks/steam_eda.ipynb)
 
@@ -52,13 +52,13 @@ Various transformations were applied to try and bring it to a more normal distri
 
 First attempts at running a linear regression (with and without regularisation) weren't very successful, and only minor improvements were seen with other models, the best being a Random Forest Regressor.
 
-An analysis of the results showed that the model was struggling to cope with the large amount of 0s that came out of the log transformation. Almost all of the games that had increased in player numbers were having their uplift underestimated, while there were games with no uplift being predicted as having some of the largest increases.
+An analysis of the results showed that the model was struggling to cope with the large amount of zeros that came out of the log transformation. Almost all of the games that had increased in player numbers were having their uplift underestimated, while there were games with no uplift being predicted as having some of the largest increases.
 
 To try and solve this, the target variable was changed from the difference between June and July numbers, to just the June average player numbers. This resulted in a Random Forest model that seemed highly accurate, but was because the vast majority of the predictive power was coming from the player numbers in June. Recalibrating the evaluation metric to use the June figures as a baseline showed that the model was significantly weaker. 
 
 Considering the high watermark set by the baseline, even a weak model would have some value though. Also, investigation of the residuals showed that it was just a few predictions that were very strongly off and were significantly affecting the model's accuracy. All of these predictions were found to be from games that currently had large player numbers. Imposing stricter and stricter filters on the dataset found that by including only games with current player numbers of less than 3000 (which still account for over 99% of the total dataset of games) a model could be created that, although not much more accurate, was a lot more stable to cross-validation.
 
-[Steam Modelling](notebooks/steam_modelling_writeup) 
+[Steam Modelling](notebooks/steam_modelling_writeup.ipynb) 
 
 ### **Conclusions**
 
