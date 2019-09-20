@@ -1,7 +1,7 @@
 
 # "There just aren't enough people playing my wizard simulator" - An analysis of Steam Sales and their impact on player numbers
 
-**Executive Summary**
+### **Executive Summary**
 
 The goal was the create a model that could accurately predict how many extra players a game gets when it is discounted on Steam. This would hopefully provide insights into how developers could make the most out of discounting their games, and could be especially valuable to small, independent developers who don't have access to their own analytics teams.
 
@@ -13,9 +13,11 @@ Ultimately, by far the biggest predictor of player numbers (whether absolute or 
 
 Based on the model discount amount has only a small impact on the change in player numbers after a sale. Considering the current low accuracy though, this cannot be taken as a definitive conclusion. Some further avenues of investigation and/or ways in which the data could be collected differently were also identified, which may help make a more valuable model in the future.
 
+
+
 Below is a summary of each stage of the project, with links to the Jupyter Notebooks containing greater detail and all code used.
 
-**Data Collection**
+### **Data Collection**
 
 The original plan was to download information on games using the Steam store API. However, I found that someone had already downloaded and cleaned a version of this data and uploaded it to [Kaggle](https://www.kaggle.com/nikdavis/steam-store-games).
 
@@ -32,7 +34,7 @@ Finally, [SteamCharts.com](https://www.steamcharts.com) was scraped to get infor
 [Steam Charts Scraping](notebooks/steamcharts_scraping.ipynb)
 
 
-**Data Cleaning and EDA**
+### **Data Cleaning and EDA**
 
 The three separate datasets had to be combined into one, followed by a large amount of cleaning and feature engineering. This included the creation of the target variable: the difference in average player numbers between June and July for each game (uplift).
 
@@ -48,7 +50,7 @@ Various transformations were applied to try and bring it to a more normal distri
 [Steam EDA](notebooks/steam_eda.ipynb)
 
 
-**Modelling**
+### **Modelling**
 
 First attempts at running a linear regression (with and without regularisation) weren't very successful, and only minor improvements were seen with other models, the best being a Random Forest Regressor.
 
