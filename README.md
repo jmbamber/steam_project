@@ -21,15 +21,15 @@ The original plan was to download information on games using the Steam store API
 
 This dataset was cleaned by removing free games (can't be discounted) and games released in 2019 (hopefully these games would have more stable monthly player numbers than those recently released):
 
-[Steam API Cleaning](./notebooks/Steam_API_data_cleaning.ipynb)
+[Steam API Cleaning](notebooks/steam_ap_data_cleaning.ipynb)
 
 Next, on which of these games were on sale during the Summer Sale was scraped from [IsThereAnyDeal.com](https://www.isthereanydeal.com):
 
-[ITAD Scraping](notebooks/ITAD_Scraping.ipynb)
+[ITAD Scraping](notebooks/itad_scraping.ipynb)
 
 Finally, [SteamCharts.com](https://www.steamcharts.com) was scraped to get information on player numbers:
 
-[Steam Charts Scraping](notebooks/SteamCharts_Scraping.ipynb)
+[Steam Charts Scraping](notebooks/steamcharts_scraping.ipynb)
 
 
 **Data Cleaning and EDA**
@@ -45,7 +45,7 @@ However the EDA also confirmed one of my concerns: the target variable wasn't at
 
 Various transformations were applied to try and bring it to a more normal distribution, including a Fisher transformation and a Yeo-Johnson, but neither were strong enough. In the end it seemed like the best approach was to use a log transformation, but this presented a new problem: How to deal with the negative numbers in my prediction variable (i.e. those games who dropped in numbers between the month). In the end I decided to try transforming all negative numbers to 0 (i.e. "no increase in players) and add a small constant (to deal with those 0s). Further decisions would be made based on initial modelling attempts.
 
-[Steam EDA](notebooks/Steam_EDA.ipynb)
+[Steam EDA](notebooks/steam_eda.ipynb)
 
 
 **Modelling**
@@ -58,7 +58,7 @@ To try and solve this, the target variable was changed from the difference betwe
 
 Considering the high watermark set by the baseline, even a weak model would have some value though. Also, investigation of the residuals showed that it was just a few predictions that were very strongly off and were significantly affecting the model's accuracy. All of these predictions were found to be from games that currently had large player numbers. Imposing stricter and stricter filters on the dataset found that by including only games with current player numbers of less than 2000 (which still account for over 99% of the total dataset of games) a model could be created that, although not much more accurate, was a lot more stable to cross-validation.
 
-[Steam Modelling](notebooks/Steam_modelling_writeup) 
+[Steam Modelling](notebooks_steam_modelling_writeup) 
 
 **Conclusions**
 
