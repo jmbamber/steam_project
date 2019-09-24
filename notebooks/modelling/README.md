@@ -13,7 +13,7 @@ To try and solve this, the target variable was changed from the difference betwe
 
 Considering the high watermark set by the baseline, even a weak model would have some value though. Also, investigation of the residuals showed that it was just a few predictions that were very strongly off and were significantly affecting the model's accuracy. All of these predictions were found to be from games that currently had large player numbers. Imposing stricter and stricter filters on the dataset found that by including only games with current player numbers of less than 3000 (which still account for over 99% of the total dataset of games) a model could be created that, although not much more accurate, was a lot more stable to cross-validation.
 
-[Steam Modelling](steam_modelling_writeup.html)
+[Steam Modelling](steam_modelling_writeup.ipynb)
 
 ---
 

@@ -7,7 +7,7 @@
 
 The three separate datasets had to be combined into one, followed by a large amount of cleaning and feature engineering. This included the creation of the target variable: the difference in average player numbers between June and July for each game (uplift).
 
-[Steam Cleaning](steam_data_cleaning.html)
+[Steam Cleaning](steam_data_cleaning.ipynb)
 
 
 Next the EDA began. Fortunately my initial hypothesis turned out to be correct, most games had increased in average player numbers between June and July (also a higher proportion than those that increased between May and June) and the increase was higher among games that had been discounted in the Summer Sale.
@@ -16,7 +16,7 @@ However the EDA also confirmed one of my concerns: the target variable wasn't at
 
 Various transformations were applied to try and bring it to a more normal distribution, but the best approach seemed to be using a log transformation. This presented a new problem: How to deal with the negative numbers in my prediction variable (i.e. those games who dropped in numbers between the months). I decided to start by transforming all negative numbers to 0 (i.e. "no increase in players) and add a small constant (to deal with those zeros). Further decisions would be made based on initial modelling attempts.
 
-[Steam EDA](notebooks/steam_eda.html)
+[Steam EDA](notebooks/steam_eda.ipynb)
 
 ---
 
