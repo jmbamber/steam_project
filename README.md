@@ -25,3 +25,7 @@ Below are links to each stage of the project, with a summary writeup and full ju
 [Modelling](/notebooks/modelling)
 
 [Conclusions and Next Steps](/notebooks/conclusions)
+
+
+
+<img src="dark_souls_model.png" width="480" alt="How I felt as I worked on this project">
