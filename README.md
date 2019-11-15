@@ -1,5 +1,5 @@
 
-# "There just aren't enough people playing my wizard simulator" - An analysis of Steam Sales and their impact on player numbers
+# "There just aren't enough people playing my wizard simulator" - Using machine learning to predict the impact of Steam Sales on player numbers
 ![](header.png)
 
 ### **Executive Summary**
